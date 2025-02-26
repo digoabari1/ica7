@@ -6,6 +6,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -15,6 +17,8 @@ class MyApp extends StatelessWidget {
 }
 
 class FadingTextAnimation extends StatefulWidget {
+  const FadingTextAnimation({super.key});
+
   @override
   _FadingTextAnimationState createState() => _FadingTextAnimationState();
 }
@@ -58,7 +62,6 @@ class _FadingTextAnimationState extends State<FadingTextAnimation> {
                   _textColor = color;
                 });
               },
-              showLabel: true,
               pickerAreaHeightPercent: 0.8,
             ),
           ),
@@ -137,10 +140,13 @@ class _FadingTextAnimationState extends State<FadingTextAnimation> {
           AnimatedOpacity(
             opacity: _isVisible ? 1.0 : 0.0,
             duration: Duration(seconds: 1),
-            child: Text(
-              'Hello, Flutter!',
-              style: TextStyle(fontSize: 24),
-            ),
+            child: GestureDetector(
+              onTap: toggleVisibility,
+              child: Text(
+                'Hello, Flutter!',
+                style: TextStyle(fontSize: 24),
+              ),
+            )
           ),
           SizedBox(height: 20),
           ElevatedButton(

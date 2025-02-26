@@ -6,12 +6,25 @@ runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-@override
-Widget build(BuildContext context) {
-return MaterialApp(
-home: FadingTextAnimation(),
-);
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Fading Animation Demo',
+      home: HomePage(),
+    );
+  }
 }
+
+class HomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return PageView(
+      children: [
+        FadingTextAnimationPage(),
+        SecondFadingAnimationPage(),
+      ],
+    );
+  }
 }
 
 class FadingTextAnimation extends StatefulWidget {
@@ -87,3 +100,42 @@ child: Icon(Icons.play_arrow),
 );
 }
 }  
+// Second screen: fading animation with a different duration
+class SecondFadingAnimationPage extends StatefulWidget {
+  @override
+  _SecondFadingAnimationPageState createState() =>
+      _SecondFadingAnimationPageState();
+}
+
+class _SecondFadingAnimationPageState extends State<SecondFadingAnimationPage> {
+  bool _isVisible = true;
+
+  void toggleVisibility() {
+    setState(() {
+      _isVisible = !_isVisible;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Second Fading Animation'),
+      ),
+      body: Center(
+        child: AnimatedOpacity(
+          opacity: _isVisible ? 1.0 : 0.0,
+          duration: const Duration(seconds: 3), // 3-second fade duration
+          child: const Text(
+            'Another Animation!',
+            style: TextStyle(fontSize: 24, color: Colors.blue),
+          ),
+        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: toggleVisibility,
+        child: const Icon(Icons.play_arrow),
+      ),
+    );
+  }
+}
